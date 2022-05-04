@@ -8,6 +8,7 @@ import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingServ
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { environment } from '../environments/environment';
     MatIconModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],
