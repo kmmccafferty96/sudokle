@@ -86,6 +86,16 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "sudokle:build:production",
+            "firebaseProject": "sudokle",
+            "firebaseHostingSite": "sudokle"
+          }
         }
       }
     }

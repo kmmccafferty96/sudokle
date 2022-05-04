@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sudokle": {
+      "hosting": {
+        "sudokle": [
+          "sudokle"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sudokle"
+  }
+}
