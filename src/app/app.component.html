@@ -2,16 +2,13 @@
   <mat-icon>tag</mat-icon>
   <span>SUDOKLE</span>
 </mat-toolbar>
-<div
-  style="font-size: larger"
-  *ngFor="
-    let row of randomNumbers.slice(
-      0,
-      (randomNumbers.length / 3) % 1 === 0 ? randomNumbers.length / 3 : randomNumbers.length / 3 + 1
-    );
-    let idx = index
-  "
->
-  <span *ngFor="let x of randomNumbers.slice(idx * 3, idx * 3 + 3)">{{ x === -1 ? '?' : x }}&nbsp;&nbsp;&nbsp;</span>
+<div class="content">
+  <div class="text">
+    Time Remaining<br>
+    {{timeLeft}}
+  </div>
+  <div class="grid">
+    <sud-cell *ngFor="let number of randomNumbers" [number]="number"></sud-cell>
+  </div>
+  <button mat-raised-button (click)="getRandomNumbers()">Randomize Numbers</button>
 </div>
-<button mat-raised-button (click)="getRandomNumbers()">Randomize Numbers</button>
