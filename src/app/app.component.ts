@@ -41,13 +41,13 @@ export class AppComponent {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
-      this.timeLeft = `${minutes}:${seconds || '00'}`;
+      this.timeLeft = `${minutes !== -1 ? minutes : 0}:${seconds < 10 ? '0' : ''}${seconds !== -1 ? seconds : 0}`;
 
       // If the count down is finished, write some text
       if (distance < 0) {
         clearInterval(this.currentInterval);
         //document.getElementById('demo').innerHTML = 'EXPIRED';
       }
-    }, 200);
+    }, 100);
   }
 }
