@@ -100,8 +100,7 @@
       }
     }
   },
-  "defaultProject": "sudokle",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }
