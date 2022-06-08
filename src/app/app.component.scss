@@ -1,5 +1,5 @@
 .content {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -13,7 +13,8 @@
 }
 
 .text {
-  font-size: 15pt;
+  font-size: 20pt;
+  line-height: normal;
   margin: 30px 0px;
   text-align: center;
 }
