@@ -10,6 +10,5 @@
   <div class="grid">
     <sud-cell *ngFor="let number of randomNumbers" [number]="number"></sud-cell>
   </div>
-  <button mat-raised-button (click)="getRandomNumbers()">Randomize Numbers</button>
-  <sud-keyboard></sud-keyboard>
+  <sud-keyboard (keyPress)="handleKeyPress($event)"></sud-keyboard>
 </div>

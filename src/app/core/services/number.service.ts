@@ -6,7 +6,7 @@ export class NumberService {
    * Randomizes numbers between 1 and 9 with one number missing.
    * -1 will be in place of the missing number.
    */
-  getNumbers(): number[] {
+  getNumbers(): { numbers: number[]; missingNumber: number } {
     let numbers = [];
     for (let i = 1; i <= 9; i++) {
       numbers.push(i);
@@ -14,9 +14,11 @@ export class NumberService {
 
     numbers = this.shuffle(numbers);
 
-    numbers[this.getRandomNumber()] = -1;
+    const randomNumber = this.getRandomNumber();
+    const missingNumber = numbers[randomNumber];
+    numbers[randomNumber] = -1;
 
-    return numbers;
+    return { numbers, missingNumber };
   }
 
   private shuffle(numbers: number[]): number[] {

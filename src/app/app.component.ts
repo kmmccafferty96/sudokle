@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
+
 import { NumberService } from './core/services/number.service';
 
 @Component({
@@ -10,15 +13,20 @@ export class AppComponent {
   currentCountDownDate: any;
   currentInterval: any;
   randomNumbers: number[] = [];
-  timeLeft: string = '1:00';
+  missingNumber: number = -1;
+  timeLeft: string = '';
+  currentScore = 0;
+  firstTry = true;
 
-  constructor(private _numberService: NumberService) {
+  constructor(private _numberService: NumberService, private _dialogService: MatDialog) {
+    this.reset();
     this.getRandomNumbers();
   }
 
   getRandomNumbers() {
-    this.randomNumbers = this._numberService.getNumbers();
-    this.startCountdown();
+    const numberObject = this._numberService.getNumbers();
+    this.randomNumbers = numberObject.numbers;
+    this.missingNumber = numberObject.missingNumber;
   }
 
   startCountdown() {
@@ -46,8 +54,34 @@ export class AppComponent {
       // If the count down is finished, write some text
       if (distance < 0) {
         clearInterval(this.currentInterval);
-        //document.getElementById('demo').innerHTML = 'EXPIRED';
+
+        this._dialogService.open(ResultDialogComponent, { data: { result: this.currentScore }, disableClose: true }).afterClosed().subscribe(() => {
+          this.reset();
+        });
       }
     }, 100);
+  }
+
+  handleKeyPress(key: number) {
+    if (this.firstTry) {
+      this.startCountdown();
+      this.firstTry = false;
+    }
+    if (key === this.missingNumber) {
+      this.randomNumbers[this.randomNumbers.indexOf(-1)] = key;
+      this.currentScore++;
+      setTimeout(() => {
+        this.getRandomNumbers();
+      }, 1000);
+    } else {
+      this.getRandomNumbers();
+    }
+  }
+
+  private reset() {
+    this.currentScore = 0;
+    this.getRandomNumbers();
+    this.firstTry = true;
+    this.timeLeft = '1:00';
   }
 }
