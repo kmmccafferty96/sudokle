@@ -3,10 +3,7 @@
   <span>SUDOKLE</span>
 </mat-toolbar>
 <div class="content">
-  <div class="text">
-    Time Remaining<br>
-    {{timeLeft}}
-  </div>
+  <sud-timer [totalTime]="totalTime" (timerFinished)="handleTimerFinished()"></sud-timer>
   <div class="grid">
     <sud-cell *ngFor="let number of randomNumbers" [number]="number"></sud-cell>
   </div>
