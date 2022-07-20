@@ -35,7 +35,7 @@ export class AppComponent {
     this.currentCountDownDate = new Date(new Date().getTime() + 61000);
 
     // Update the count down every 1 second
-    this.currentInterval = setInterval( () => {
+    this.currentInterval = setInterval(() => {
       // Get today's date and time
       var now = new Date().getTime();
 
@@ -55,9 +55,17 @@ export class AppComponent {
       if (distance < 0) {
         clearInterval(this.currentInterval);
 
-        this._dialogService.open(ResultDialogComponent, { data: { result: this.currentScore }, disableClose: true }).afterClosed().subscribe(() => {
-          this.reset();
-        });
+        this._dialogService
+          .open(ResultDialogComponent, {
+            data: { result: this.currentScore },
+            disableClose: true,
+            width: '80%',
+            height: '40%',
+          })
+          .afterClosed()
+          .subscribe(() => {
+            this.reset();
+          });
       }
     }, 100);
   }
