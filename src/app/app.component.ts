@@ -19,6 +19,7 @@ export class AppComponent implements AfterViewInit {
   currentScore = 0;
   firstTry = true;
   lock = false;
+  lastGuess = -1;
 
   constructor(private _numberService: NumberService, private _dialogService: MatDialog) {}
 
@@ -41,8 +42,9 @@ export class AppComponent implements AfterViewInit {
           this.lock = false;
         }, 1000);
       } else {
-        this.getRandomNumbers(key);
+        this.getRandomNumbers([this.lastGuess, key]);
       }
+      this.lastGuess = key;
     }
   }
 
@@ -60,8 +62,8 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  private getRandomNumbers(rollAgainNumber?: number) {
-    const numberObject = this._numberService.getNumbers(rollAgainNumber);
+  private getRandomNumbers(rollAgainNumbers?: number[]) {
+    const numberObject = this._numberService.getNumbers(rollAgainNumbers);
     this.randomNumbers = numberObject.numbers;
     this.missingNumber = numberObject.missingNumber;
   }
