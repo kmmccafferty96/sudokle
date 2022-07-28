@@ -20,6 +20,8 @@ export class AppComponent implements AfterViewInit {
   firstTry = true;
   lock = false;
   lastGuess = -1;
+  displayOverlay = false;
+  success = false;
 
   constructor(private _numberService: NumberService, private _dialogService: MatDialog) {}
 
@@ -29,20 +31,28 @@ export class AppComponent implements AfterViewInit {
 
   handleKeyPress(key: number) {
     if (!this.lock) {
+      this.displayOverlay = true;
+      this.lock = true;
       if (this.firstTry) {
         this.timer.startCountdown();
         this.firstTry = false;
       }
       if (key === this.missingNumber) {
-        this.lock = true;
+        this.success = true;
         this.randomNumbers[this.randomNumbers.indexOf(-1)] = key;
         this.currentScore++;
         setTimeout(() => {
+          this.displayOverlay = false;
           this.getRandomNumbers();
           this.lock = false;
-        }, 1000);
+        }, 500);
       } else {
-        this.getRandomNumbers([this.lastGuess, key]);
+        this.success = false;
+        setTimeout(() => {
+          this.displayOverlay = false;
+          this.getRandomNumbers([this.lastGuess, key]);
+          this.lock = false;
+        }, 1000);
       }
       this.lastGuess = key;
     }
@@ -69,8 +79,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   private reset() {
+    this.firstTry = true;
+    this.timer.resetTimeLeft();
     this.currentScore = 0;
     this.getRandomNumbers();
-    this.timer.startCountdown();
   }
 }

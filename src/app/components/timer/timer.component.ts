@@ -41,4 +41,8 @@ export class TimerComponent {
       }
     }, 100);
   }
+
+  resetTimeLeft(): void {
+    this.timeLeft = '1:00';
+  }
 }

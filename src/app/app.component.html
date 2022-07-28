@@ -1,3 +1,9 @@
+<div *ngIf="displayOverlay" class="overlay">
+  <div>
+    <mat-icon *ngIf="success" class="success">check</mat-icon>
+    <mat-icon *ngIf="!success" class="fail">close</mat-icon>
+  </div>
+</div>
 <mat-toolbar color="primary">
   <mat-icon>tag</mat-icon>
   <span>SUDOKLE</span>

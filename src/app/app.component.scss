@@ -11,3 +11,28 @@
   grid-template-columns: repeat(3, 1fr);
   margin-bottom: 30px;
 }
+
+.overlay {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay mat-icon {
+  transform: scale(12);
+}
+
+.success {
+  color: green;
+}
+
+.fail {
+  color: red;
+}
