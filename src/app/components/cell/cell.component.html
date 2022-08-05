@@ -1,3 +1,5 @@
-<div class="wrapper" [ngClass]="{'border-dashed': number === -1, 'border-solid': number !== -1, 'green': success}">
-  {{ number !== -1 ? number : ' ' }}
+<div class="wrapper" [ngClass]="{'border-dashed': number === -1, 'border-solid': number !== -1}">
+  <div [ngClass]="{'green': success}">
+    {{ number !== -1 ? number : ' ' }}
+  </div>
 </div>
