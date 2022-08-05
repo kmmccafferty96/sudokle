@@ -14,7 +14,7 @@ import { StorageService } from './core/services/storage.service';
 export class AppComponent implements AfterViewInit {
   @ViewChild(TimerComponent) private timer!: TimerComponent;
 
-  totalTime = 10000;
+  totalTime = 60000;
   randomNumbers: number[] = [];
   missingNumber: number = -1;
   currentScore = 0;
@@ -24,7 +24,11 @@ export class AppComponent implements AfterViewInit {
   displayOverlay = false;
   success = false;
 
-  constructor(private _numberService: NumberService, private _dialogService: MatDialog, public storageService: StorageService) {}
+  constructor(
+    private _numberService: NumberService,
+    private _dialogService: MatDialog,
+    public storageService: StorageService,
+  ) {}
 
   ngAfterViewInit(): void {
     this.getRandomNumbers();
@@ -62,16 +66,16 @@ export class AppComponent implements AfterViewInit {
   handleTimerFinished() {
     const previousHighScore = this.storageService.setScore(this.currentScore);
     this._dialogService
-    .open(ResultDialogComponent, {
-      data: { result: this.currentScore, previousHighScore },
-      disableClose: true,
-      width: '80%',
-      height: '40%',
-    })
-    .afterClosed()
-    .subscribe(() => {
-      this.reset();
-    });
+      .open(ResultDialogComponent, {
+        data: { result: this.currentScore, previousHighScore },
+        disableClose: true,
+        width: '80%',
+        height: '40%',
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.reset();
+      });
   }
 
   private getRandomNumbers(rollAgainNumbers?: number[]) {
