@@ -1,6 +1,14 @@
 <div class="result-dialog-container">
   <div class="text">
     You scored {{ result }}!
+    <ng-container *ngIf="isHighScore">
+      <br>
+      New high score!
+    </ng-container>
+    <ng-container *ngIf="!isHighScore">
+      <br>
+      Current high score: {{ previousHighScore }}
+    </ng-container>
   </div>
   <button mat-flat-button (click)="closeDialog()">Try Again!</button>
 </div>

@@ -4,9 +4,14 @@
     <mat-icon *ngIf="!success" class="fail">close</mat-icon>
   </div>
 </div>
-<mat-toolbar color="primary">
-  <mat-icon>tag</mat-icon>
-  <span>SUDOKLE</span>
+<mat-toolbar class="toolbar" color="primary">
+  <div>
+    <mat-icon>tag</mat-icon>
+    <span>SUDOKLE</span>
+  </div>
+  <div>
+    HIGH SCORE: {{ storageService.highScore$ | async }}
+  </div>
 </mat-toolbar>
 <div class="content">
   <sud-timer [totalTime]="totalTime" (timerFinished)="handleTimerFinished()"></sud-timer>
