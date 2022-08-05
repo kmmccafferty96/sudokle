@@ -1,6 +1,6 @@
 <div *ngIf="displayOverlay" class="overlay">
   <div>
-    <mat-icon *ngIf="success" class="success">check</mat-icon>
+    <!-- <mat-icon *ngIf="success" class="success">check</mat-icon> -->
     <mat-icon *ngIf="!success" class="fail">close</mat-icon>
   </div>
 </div>
@@ -16,7 +16,7 @@
 <div class="content">
   <sud-timer [totalTime]="totalTime" (timerFinished)="handleTimerFinished()"></sud-timer>
   <div class="grid">
-    <sud-cell *ngFor="let number of randomNumbers" [number]="number"></sud-cell>
+    <sud-cell *ngFor="let number of randomNumbers" [number]="number.number" [success]="number.success"></sud-cell>
   </div>
   <sud-keyboard (keyPress)="handleKeyPress($event)"></sud-keyboard>
 </div>

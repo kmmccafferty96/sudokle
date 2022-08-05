@@ -15,7 +15,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(TimerComponent) private timer!: TimerComponent;
 
   totalTime = 60000;
-  randomNumbers: number[] = [];
+  randomNumbers: { number: number; success: boolean }[] = [];
   missingNumber: number = -1;
   currentScore = 0;
   firstTry = true;
@@ -36,7 +36,6 @@ export class AppComponent implements AfterViewInit {
 
   handleKeyPress(key: number) {
     if (!this.lock) {
-      this.displayOverlay = true;
       this.lock = true;
       if (this.firstTry) {
         this.timer.startCountdown();
@@ -44,14 +43,14 @@ export class AppComponent implements AfterViewInit {
       }
       if (key === this.missingNumber) {
         this.success = true;
-        this.randomNumbers[this.randomNumbers.indexOf(-1)] = key;
+        this.randomNumbers[this.randomNumbers.map((rn) => rn.number).indexOf(-1)] = { number: key, success: true };
         this.currentScore++;
         setTimeout(() => {
-          this.displayOverlay = false;
           this.getRandomNumbers();
           this.lock = false;
-        }, 500);
+        }, 250);
       } else {
+        this.displayOverlay = true;
         this.success = false;
         setTimeout(() => {
           this.displayOverlay = false;
@@ -80,7 +79,9 @@ export class AppComponent implements AfterViewInit {
 
   private getRandomNumbers(rollAgainNumbers?: number[]) {
     const numberObject = this._numberService.getNumbers(rollAgainNumbers);
-    this.randomNumbers = numberObject.numbers;
+    this.randomNumbers = numberObject.numbers.map((num) => {
+      return { number: num, success: false }
+    });
     this.missingNumber = numberObject.missingNumber;
   }
 
