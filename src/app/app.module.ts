@@ -7,9 +7,10 @@ import { CellComponent } from './components/cell/cell.component';
 import { KeyboardComponent } from './components/keyboard/keyboard.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, CellComponent, KeyboardComponent, ResultDialogComponent, TimerComponent],
+  declarations: [AppComponent, CellComponent, KeyboardComponent, ResultDialogComponent, TimerComponent, MaxTimesPlayedDialogComponent],
   imports: [CoreModule, CommonModule],
   bootstrap: [AppComponent],
 })

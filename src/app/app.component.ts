@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
 
@@ -23,6 +24,7 @@ export class AppComponent implements AfterViewInit {
   lastGuess = -1;
   displayOverlay = false;
   success = false;
+  timesPlayedToday = 0;
 
   constructor(
     private _numberService: NumberService,
@@ -32,6 +34,11 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getRandomNumbers();
+    this.storageService.timesPlayedToday$.subscribe((timesPlayedToday) => {
+      this.timesPlayedToday = timesPlayedToday;
+    });
+
+    this.checkCanPlayAgain();
   }
 
   handleKeyPress(key: number) {
@@ -39,6 +46,7 @@ export class AppComponent implements AfterViewInit {
       this.lock = true;
       if (this.firstTry) {
         this.timer.startCountdown();
+        this.storageService.incrementTimesPlayedToday();
         this.firstTry = false;
       }
       if (key === this.missingNumber) {
@@ -73,8 +81,18 @@ export class AppComponent implements AfterViewInit {
       })
       .afterClosed()
       .subscribe(() => {
-        this.reset();
+        if (this.checkCanPlayAgain()) {
+          this.reset();
+        }
       });
+  }
+
+  private checkCanPlayAgain(): boolean {
+    if (this.timesPlayedToday === 3) {
+      this._dialogService.open(MaxTimesPlayedDialogComponent, { disableClose: true });
+      return false;
+    }
+    return true
   }
 
   private getRandomNumbers(rollAgainNumbers?: number[]) {

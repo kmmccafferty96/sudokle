@@ -14,6 +14,12 @@ export class StorageService {
 
   constructor() {
     this._highScoreSub.next(this.getHighScore());
+    this._timesPlayedTodaySub.next(this.getTimesPlayedToday());
+
+    // Add ?reset=true to url to reset times played
+    if (location.search.includes('reset=true')) {
+      this.resetTimesPlayed();
+    }
   }
 
   /**
@@ -32,7 +38,9 @@ export class StorageService {
   }
 
   incrementTimesPlayedToday(): void {
-
+    const newTimesPlayed = this._timesPlayedTodaySub.value + 1;
+    localStorage.setItem(TIMES_PLAYED_KEY, `${this.getCurrentDateString()}-${newTimesPlayed}`);
+    this._timesPlayedTodaySub.next(newTimesPlayed);
   }
 
   private getHighScore(): number {
@@ -40,11 +48,28 @@ export class StorageService {
   }
 
   private getTimesPlayedToday(): number {
-    return parseInt(localStorage.getItem(TIMES_PLAYED_KEY) || '0');
+    const storedDateAndTimesPlayedString = localStorage.getItem(TIMES_PLAYED_KEY);
+
+    if (!storedDateAndTimesPlayedString) {
+      return 0;
+    }
+
+    const storedDateString = storedDateAndTimesPlayedString.substring(0, storedDateAndTimesPlayedString.indexOf('-'));
+    if (storedDateString === this.getCurrentDateString()) {
+      const timesPlayed = parseInt(storedDateAndTimesPlayedString.replace(`${storedDateString}-`, ''));
+      return timesPlayed;
+    }
+
+    return 0;
   }
 
   private getCurrentDateString(): string {
     const currentDate = new Date();
     return `${currentDate.getMonth()}${currentDate.getDate()}${currentDate.getFullYear()}`;
+  }
+
+  private resetTimesPlayed(): void {
+    localStorage.setItem(TIMES_PLAYED_KEY, '');
+    this._timesPlayedTodaySub.next(0);
   }
 }
