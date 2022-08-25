@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
 import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { animationValues } from './core/animations';
 
 import { NumberService } from './core/services/number.service';
 import { StorageService } from './core/services/storage.service';
@@ -25,6 +27,10 @@ export class AppComponent implements AfterViewInit {
   displayOverlay = false;
   success = false;
   timesPlayedToday = 0;
+  animationValues = animationValues;
+  selectedAnimationValue = this.animationValues[0];
+  animationSpeedValues = ['default', 'slow', 'slower', 'fast', 'faster'];
+  selectedAnimationSpeedValue = this.animationSpeedValues[0];
 
   constructor(
     private _numberService: NumberService,
@@ -85,6 +91,14 @@ export class AppComponent implements AfterViewInit {
           this.reset();
         }
       });
+  }
+
+  handleAnimationPickerChange(event: MatSelectChange): void {
+    this.selectedAnimationValue = event.value;
+  }
+
+  handleAnimationSpeedPickerChange(event: MatSelectChange): void {
+    this.selectedAnimationSpeedValue = event.value;
   }
 
   private checkCanPlayAgain(): boolean {
