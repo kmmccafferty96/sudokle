@@ -16,9 +16,9 @@
 <div class="content">
   <sud-timer [totalTime]="totalTime" (timerFinished)="handleTimerFinished()"></sud-timer>
   <div class="grid">
-    <sud-cell *ngFor="let number of randomNumbers" [number]="number.number" [success]="number.success" [animation]="selectedAnimationValue" [animationSpeed]="selectedAnimationSpeedValue"></sud-cell>
+    <sud-cell *ngFor="let number of randomNumbers" [number]="number.number" [success]="number.success" [animation]="animation"></sud-cell>
   </div>
-  Animation
+  <!-- Animation
   <mat-select class="animation-picker" (selectionChange)="handleAnimationPickerChange($event)" [value]="animationValues[0]">
     <mat-option *ngFor="let av of animationValues" [value]="av">
       {{av}}
@@ -28,6 +28,6 @@
     <mat-option *ngFor="let av of animationSpeedValues" [value]="av">
       {{av}}
     </mat-option>
-  </mat-select>
+  </mat-select> -->
   <sud-keyboard (keyPress)="handleKeyPress($event)"></sud-keyboard>
 </div>

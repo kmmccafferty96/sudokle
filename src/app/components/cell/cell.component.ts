@@ -9,5 +9,4 @@ export class CellComponent {
   @Input() number: number = -1;
   @Input() success: boolean = false;
   @Input() animation: string = '';
-  @Input() animationSpeed: string = '';
 }
