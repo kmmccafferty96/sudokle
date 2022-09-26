@@ -67,7 +67,7 @@ export class AppComponent implements AfterViewInit {
       } else {
         this.displayOverlay = true;
         this.success = false;
-        this.animation = 'headShake';
+        this.animation = 'headShake2';
         setTimeout(() => {
           this.displayOverlay = false;
           this.animation = 'backInLeft';
@@ -109,13 +109,13 @@ export class AppComponent implements AfterViewInit {
       this._dialogService.open(MaxTimesPlayedDialogComponent, { disableClose: true });
       return false;
     }
-    return true
+    return true;
   }
 
   private getRandomNumbers(rollAgainNumbers?: number[]) {
     const numberObject = this._numberService.getNumbers(rollAgainNumbers);
     this.randomNumbers = numberObject.numbers.map((num) => {
-      return { number: num, success: false }
+      return { number: num, success: false };
     });
     this.missingNumber = numberObject.missingNumber;
   }
