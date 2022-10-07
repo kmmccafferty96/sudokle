@@ -10,7 +10,8 @@ export const environment = {
     apiKey: 'AIzaSyA56wSJSNcPw0VTCNqs8JNavQklCipLipI',
     authDomain: 'sudokle.firebaseapp.com',
     messagingSenderId: '390188703714',
-    measurementId: 'G-YSRBF35H1E',
+    // measurementId commented out to disable analytics in dev.
+    // measurementId: 'G-YSRBF35H1E',
   },
   production: false,
 };
