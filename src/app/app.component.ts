@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { DatabaseService } from './core/services/database.service';
 
 import { NumberService } from './core/services/number.service';
 import { StorageService } from './core/services/storage.service';
@@ -35,6 +36,7 @@ export class AppComponent implements AfterViewInit {
     private _numberService: NumberService,
     private _dialogService: MatDialog,
     public storageService: StorageService,
+    public databaseService: DatabaseService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -80,10 +82,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   handleTimerFinished() {
-    const previousHighScore = this.storageService.setScore(this.currentScore);
+    const previousHighScore = this.databaseService.postScore({ username: 'none', score: this.currentScore });
     this._dialogService
       .open(ResultDialogComponent, {
-        data: { result: this.currentScore, previousHighScore },
+        data: { result: this.currentScore, previousHighScore: previousHighScore.score },
         disableClose: true,
         width: '80%',
         height: '40%',

@@ -9,14 +9,17 @@
     <mat-icon>tag</mat-icon>
     <span>SUDOKLE</span>
   </div>
-  <div>
-    HIGH SCORE: {{ storageService.highScore$ | async }}
-  </div>
+  <div>HIGH SCORE: {{ (databaseService.highScore$ | async)?.score }}</div>
 </mat-toolbar>
 <div class="content">
   <sud-timer [totalTime]="totalTime" (timerFinished)="handleTimerFinished()"></sud-timer>
   <div class="grid">
-    <sud-cell *ngFor="let number of randomNumbers" [number]="number.number" [success]="number.success" [animation]="animation"></sud-cell>
+    <sud-cell
+      *ngFor="let number of randomNumbers"
+      [number]="number.number"
+      [success]="number.success"
+      [animation]="animation"
+    ></sud-cell>
   </div>
   <!-- Animation
   <mat-select class="animation-picker" (selectionChange)="handleAnimationPickerChange($event)" [value]="animationValues[0]">
