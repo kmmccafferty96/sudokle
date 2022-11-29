@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
@@ -26,10 +26,6 @@ export class AppComponent implements AfterViewInit {
   displayOverlay = false;
   success = false;
   timesPlayedToday = 0;
-  // animationValues = animationValues;
-  // selectedAnimationValue = 'backInLeft';
-  // animationSpeedValues = ['default', 'slow', 'slower', 'fast', 'faster'];
-  // selectedAnimationSpeedValue = this.animationSpeedValues[4];
   animation = 'backInLeft';
 
   constructor(
@@ -97,14 +93,6 @@ export class AppComponent implements AfterViewInit {
         }
       });
   }
-
-  // handleAnimationPickerChange(event: MatSelectChange): void {
-  //   this.selectedAnimationValue = event.value;
-  // }
-
-  // handleAnimationSpeedPickerChange(event: MatSelectChange): void {
-  //   this.selectedAnimationSpeedValue = event.value;
-  // }
 
   private checkCanPlayAgain(): boolean {
     if (this.timesPlayedToday === 3) {

@@ -21,16 +21,5 @@
       [animation]="animation"
     ></sud-cell>
   </div>
-  <!-- Animation
-  <mat-select class="animation-picker" (selectionChange)="handleAnimationPickerChange($event)" [value]="animationValues[0]">
-    <mat-option *ngFor="let av of animationValues" [value]="av">
-      {{av}}
-    </mat-option>
-  </mat-select>
-  <mat-select class="animation-picker" (selectionChange)="handleAnimationSpeedPickerChange($event)" [value]="animationSpeedValues[0]">
-    <mat-option *ngFor="let av of animationSpeedValues" [value]="av">
-      {{av}}
-    </mat-option>
-  </mat-select> -->
   <sud-keyboard (keyPress)="handleKeyPress($event)"></sud-keyboard>
 </div>
