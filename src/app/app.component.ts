@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';

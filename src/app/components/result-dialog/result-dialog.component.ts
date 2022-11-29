@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatLegacyDialogRef as MatDialogRef,
+  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
+} from '@angular/material/legacy-dialog';
 
 @Component({
   templateUrl: './result-dialog.component.html',
@@ -10,7 +13,10 @@ export class ResultDialogComponent {
   previousHighScore = 0;
   isHighScore = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: { result: number, previousHighScore: number }, private _matDialogRef: MatDialogRef<ResultDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data: { result: number; previousHighScore: number },
+    private _matDialogRef: MatDialogRef<ResultDialogComponent>,
+  ) {
     this.result = data.result;
     this.previousHighScore = data.previousHighScore;
     this.isHighScore = data.result > data.previousHighScore;
