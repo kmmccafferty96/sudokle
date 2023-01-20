@@ -21,4 +21,6 @@ button {
   width: 100%;
   min-height: 55px;
   font-size: 20pt;
+  // Disables the faint light color when a button is focused (like after tapping)
+  --mat-mdc-button-persistent-ripple-color: transparent;
 }
