@@ -1,14 +1,21 @@
-<div class="result-dialog-container">
-  <div class="text">
-    You scored {{ result }}!
-    <ng-container *ngIf="isHighScore">
-      <br>
-      New high score!
-    </ng-container>
-    <ng-container *ngIf="!isHighScore">
-      <br>
-      Current high score: {{ previousHighScore }}
-    </ng-container>
-  </div>
-  <button mat-flat-button (click)="closeDialog()">Try Again!</button>
+<h1 mat-dialog-title>
+  <ng-container *ngIf="isHighScore">New Top 5 High Score!</ng-container>
+  <ng-container *ngIf="!isHighScore">Nice Job!</ng-container>
+</h1>
+<div mat-dialog-content>
+  Score: {{ data.result }}
+  <ng-container *ngIf="isHighScore">
+    <p>Enter your initials to save your high score to the leaderboard:</p>
+    <mat-form-field>
+      <mat-label>Your initials</mat-label>
+      <input matInput [(ngModel)]="this.name" maxLength="3" onkeyup="this.value = this.value.toUpperCase()" />
+    </mat-form-field>
+  </ng-container>
+  <ng-container *ngIf="!isHighScore"> </ng-container>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="closeDialog()">
+    <ng-container *ngIf="isHighScore">Submit</ng-container>
+    <ng-container *ngIf="!isHighScore">Try Again</ng-container>
+  </button>
 </div>

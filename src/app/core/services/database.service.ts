@@ -1,42 +1,38 @@
 import { Injectable } from '@angular/core';
 import { child, Database, get, ref, set } from '@angular/fire/database';
-import { BehaviorSubject } from 'rxjs';
+import { v4 as uuid } from 'uuid';
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseService {
-  private _highScoreSub = new BehaviorSubject<HighScore>({ username: '', score: 0 });
-  private readonly highScorePath = 'high-score';
+  private readonly highScorePath = 'scores';
 
-  highScore$ = this._highScoreSub.asObservable();
+  constructor(private _database: Database) {}
 
-  constructor(private _database: Database) {
-    this.getHighScore();
+  postScore(highScore: HighScore): void {
+    const key = uuid();
+    set(ref(this._database, this.highScorePath + '/' + key), { ...highScore });
   }
 
-  postScore(highScore: HighScore): HighScore {
-    if (highScore.score > this._highScoreSub.value.score) {
-      this._highScoreSub.next(highScore);
-      set(ref(this._database, this.highScorePath), { highScore });
-    }
-
-    return this._highScoreSub.value;
-  }
-
-  async getHighScore(): Promise<void> {
-    let result: HighScore = { username: 'none', score: 0 };
+  async getTopFiveHighScores(): Promise<HighScore[]> {
+    let result: HighScore[] = [{ username: 'none', score: 0 }];
 
     try {
       const highScoreRef = ref(this._database);
       const snapshot = await get(child(highScoreRef, this.highScorePath));
       if (snapshot.exists()) {
-        console.log(snapshot);
-        result = snapshot.val().highScore;
+        const value = snapshot.val();
+        if (Object.keys(value).length > 0) {
+          result = [];
+        }
+        Object.keys(value).forEach((key) => {
+          result = result.concat([value[key]]);
+        });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
-    this._highScoreSub.next(result);
+    return result.sort(({ score: a }, { score: b }) => b - a).slice(0, 5);
   }
 }
 

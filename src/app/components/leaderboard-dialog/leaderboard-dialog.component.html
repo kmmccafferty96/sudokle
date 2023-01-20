@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Leaderboard</h1>
+<div mat-dialog-content>
+  <div *ngFor="let score of highScores">{{ score.username }} - {{ score.score }}</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="closeDialog()">Close</button>
+</div>

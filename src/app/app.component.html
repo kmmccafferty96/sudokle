@@ -9,7 +9,8 @@
     <mat-icon>tag</mat-icon>
     <span>SUDOKLE</span>
   </div>
-  <div>HIGH SCORE: {{ (databaseService.highScore$ | async)?.score }}</div>
+  <!-- <div>HIGH SCORE: {{ (databaseService.highScore$ | async)?.score }}</div> -->
+  <button mat-icon-button (click)="openLeaderboard()"><mat-icon>leaderboard</mat-icon></button>
 </mat-toolbar>
 <div class="content">
   <sud-timer [totalTime]="totalTime" (timerFinished)="handleTimerFinished()"></sud-timer>

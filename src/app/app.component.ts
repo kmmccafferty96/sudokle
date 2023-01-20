@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { LeaderboardDialog } from './components/leaderboard-dialog/leaderboard-dialog.component';
 import { MaxTimesPlayedDialogComponent } from './components/max-times-played-dialog/max-times-played-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
@@ -77,21 +78,30 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  handleTimerFinished() {
-    const previousHighScore = this.databaseService.postScore({ username: 'none', score: this.currentScore });
+  async handleTimerFinished() {
+    const highScores = await this.databaseService.getTopFiveHighScores();
+    const scoreToBeat = highScores[highScores.length - 1];
     this._dialogService
       .open(ResultDialogComponent, {
-        data: { result: this.currentScore, previousHighScore: previousHighScore.score },
+        data: { result: this.currentScore, scoreToBeat: scoreToBeat.score },
         disableClose: true,
-        width: '80%',
-        height: '40%',
       })
       .afterClosed()
-      .subscribe(() => {
+      .subscribe((name: string) => {
+        if (name) {
+          // There is a new high score, save it
+          this.databaseService.postScore({ username: name.toUpperCase(), score: this.currentScore });
+        }
         if (this.checkCanPlayAgain()) {
           this.reset();
         }
       });
+  }
+
+  openLeaderboard() {
+    this._dialogService.open(LeaderboardDialog, {
+      disableClose: true,
+    });
   }
 
   private checkCanPlayAgain(): boolean {

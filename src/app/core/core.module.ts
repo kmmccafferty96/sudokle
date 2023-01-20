@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-
-import { environment } from '../../environments/environment';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { environment } from '../../environments/environment';
 
 @NgModule({
   imports: [
@@ -24,7 +26,16 @@ import { provideFunctions, getFunctions } from '@angular/fire/functions';
     provideDatabase(() => getDatabase()),
     provideFunctions(() => getFunctions()),
   ],
-  exports: [MatToolbarModule, MatIconModule, MatButtonModule, MatDialogModule, MatSelectModule],
+  exports: [
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [ScreenTrackingService, UserTrackingService],
 })
 export class CoreModule {}
