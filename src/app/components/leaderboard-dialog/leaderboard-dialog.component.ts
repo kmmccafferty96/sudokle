@@ -7,7 +7,8 @@ import { DatabaseService } from 'src/app/core/services/database.service';
   styleUrls: ['./leaderboard-dialog.component.scss'],
 })
 export class LeaderboardDialog {
-  highScores: any = [];
+  highScores: any = new Array(5);
+  displayedColumns: string[] = ['position', 'initials', 'score'];
 
   constructor(private _databaseService: DatabaseService, public _matDialogRef: MatDialogRef<LeaderboardDialog>) {
     this.buildLeaderboard();

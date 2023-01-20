@@ -99,9 +99,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   openLeaderboard() {
-    this._dialogService.open(LeaderboardDialog, {
-      disableClose: true,
-    });
+    this._dialogService.open(LeaderboardDialog);
   }
 
   private checkCanPlayAgain(): boolean {
