@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 const HIGH_SCORE_KEY = 'SUD_HIGH_SCORE';
 const TIMES_PLAYED_KEY = 'SUD_TIMES_PLAYED';
+const INITIALS_KEY = 'SUD_INITIALS';
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
@@ -41,6 +42,14 @@ export class StorageService {
     const newTimesPlayed = this._timesPlayedTodaySub.value + 1;
     localStorage.setItem(TIMES_PLAYED_KEY, `${this.getCurrentDateString()}-${newTimesPlayed}`);
     this._timesPlayedTodaySub.next(newTimesPlayed);
+  }
+
+  setInitials(initials: string): void {
+    localStorage.setItem(INITIALS_KEY, initials);
+  }
+
+  getInitials(): string | undefined {
+    return localStorage.getItem(INITIALS_KEY) || undefined;
   }
 
   private getHighScore(): number {

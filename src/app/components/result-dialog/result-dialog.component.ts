@@ -10,10 +10,11 @@ export class ResultDialogComponent {
   name = '';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { result: number; scoreToBeat: number },
+    @Inject(MAT_DIALOG_DATA) public data: { result: number; scoreToBeat: number; initials: string },
     public _matDialogRef: MatDialogRef<ResultDialogComponent>,
   ) {
     this.isHighScore = data.result > data.scoreToBeat;
+    this.name = data.initials;
   }
 
   closeDialog() {

@@ -81,9 +81,10 @@ export class AppComponent implements AfterViewInit {
   async handleTimerFinished() {
     const highScores = await this.databaseService.getTopFiveHighScores();
     const scoreToBeat = highScores[highScores.length - 1];
+    const initials = this.storageService.getInitials();
     this._dialogService
       .open(ResultDialogComponent, {
-        data: { result: this.currentScore, scoreToBeat: scoreToBeat.score },
+        data: { result: this.currentScore, scoreToBeat: scoreToBeat.score, initials },
         disableClose: true,
       })
       .afterClosed()
@@ -91,6 +92,9 @@ export class AppComponent implements AfterViewInit {
         if (name) {
           // There is a new high score, save it
           this.databaseService.postScore({ username: name.toUpperCase(), score: this.currentScore });
+
+          // Also save the user's initials to local storage
+          this.storageService.setInitials(name.toUpperCase());
         }
         if (this.checkCanPlayAgain()) {
           this.reset();
