@@ -107,7 +107,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   private checkCanPlayAgain(): boolean {
-    if (this.timesPlayedToday === 2) {
+    if (this.timesPlayedToday === 3) {
       this._dialogService.open(MaxTimesPlayedDialogComponent, { disableClose: true });
       return false;
     }
