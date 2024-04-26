@@ -13,5 +13,7 @@ body {
   touch-action: manipulation;
 }
 .mdc-button {
-  text-transform: uppercase;
+  .mdc-button__label {
+    text-transform: uppercase;
+  }
 }
